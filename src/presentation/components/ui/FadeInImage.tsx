@@ -27,7 +27,7 @@ export const FadeInImage = ({uri, style}: Props) => {
   }, []);
 
   const onLoadEnd=()=>{
-    if(!isDisposed.current)return;
+    if(isDisposed.current)return;
     fadeIn({});
     setIsLoading(false)
   }
