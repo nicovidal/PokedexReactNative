@@ -17,13 +17,13 @@ interface Props extends StackScreenProps<RootStackParams, 'PokemonScreen'> { }
 
 export const PokemonScreen = ({ navigation, route }: Props) => {
 
-  const {top}=useSafeAreaInsets();
-  const {isDark}=useContext(ThemeContext)
+  const { top } = useSafeAreaInsets();
+  const { isDark } = useContext(ThemeContext)
   const { pokemonId } = route.params;
 
-  const pokeballImg=isDark
-    ?require('../../../assets/pokeball-light.png')
-    :require('../../../assets/pokeball-dark.png')
+  const pokeballImg = isDark
+    ? require('../../../assets/pokeball-light.png')
+    : require('../../../assets/pokeball-dark.png')
 
 
 
@@ -95,6 +95,65 @@ export const PokemonScreen = ({ navigation, route }: Props) => {
             uri={item}
             style={{ width: 100, height: 100, marginHorizontal: 5 }}
           />
+        )}
+      />
+      {/* abilities */}
+      <Text style={styles.subTitle}>Abilities</Text>
+      <FlatList
+        data={pokemon.abilities}
+        horizontal
+        keyExtractor={item => item}
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <Chip selectedColor="white">{Formatter.capitalize(item)}</Chip>
+        )}
+      />
+
+      {/* Stats */}
+      <Text style={styles.subTitle}>Stats</Text>
+
+      <FlatList
+        data={pokemon.stats}
+        keyExtractor={item => item.name}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <View style={styles.statsContainer}>
+            <Text style={{ flex: 1, color: 'white' }}>
+              {Formatter.capitalize(item.name)}
+            </Text>
+            <Text style={{ color: 'white' }}>{item.value}</Text>
+          </View>
+        )}
+      />
+
+      {/* Moves */}
+      <Text style={styles.subTitle}>Moves</Text>
+      <FlatList
+        data={pokemon.moves}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        centerContent
+        renderItem={({ item }) => (
+          <View style={styles.statsContainer}>
+            <Text style={{ flex: 1, color: 'white' }}>
+              {Formatter.capitalize(item.name)}
+            </Text>
+            <Text style={{ color: 'white' }}>lvl {item.level}</Text>
+          </View>
+        )}
+      />
+
+      {/* Games */}
+      <Text style={styles.subTitle}>Games</Text>
+      <FlatList
+        data={pokemon.games}
+        horizontal
+        keyExtractor={item => item}
+        showsHorizontalScrollIndicator={false}
+        centerContent
+        renderItem={({ item }) => (
+          <Chip selectedColor="white">{Formatter.capitalize(item)}</Chip>
         )}
       />
 
